@@ -35,6 +35,11 @@
                                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                         Precio en Tienda
                                                     </th>
+                                                    <th
+                                                        scope="col"
+                                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                        &nbsp;
+                                                    </th>
                                                 </tr>
                                             </thead>
                                             <tbody class="bg-white divide-y divide-gray-200">
@@ -75,6 +80,13 @@
                                                             ${{ product.shop_price }}
                                                         </span>
                                                     </td>
+                                                    <td class="px-6 py-4 whitespace-nowrap">
+                                                        <button class="bg-red-700 hover:bg-red-900 text-white rounded-full p-2" @click.prevent="deleteProduct(product.id)">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                                                            </svg>
+                                                        </button>
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -94,6 +106,7 @@
 import BreezeAuthenticatedLayout from "@/Layouts/Authenticated.vue";
 import { Head, Link } from "@inertiajs/inertia-vue3";
 import Paginator from '@/Components/Paginator.vue';
+import SweetAlert from "sweetalert2";
 
 export default {
     components: {
@@ -104,6 +117,30 @@ export default {
     },
     props: {
         products: Object
+    },
+
+    methods:{
+        deleteProduct(id){
+            this.$inertia.delete(this.route('products.destroy', id));
+        },
+
+        showSuccessAlert() {
+            // Use sweetalert2
+            this.$swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Eliminado con Exito",
+                showConfirmButton: false,
+                timer: 1500,
+            });
+        },
+    },
+
+    updated() {
+        this.isEditable = false;
+        if (this.$page.props.flash.status == "success") {
+            this.showSuccessAlert();
+        }
     },
 };
 </script>

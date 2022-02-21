@@ -83,7 +83,9 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $product->update($request->all());
+
+        return redirect()->route('products.edit', $product)->with('status', 'success');
     }
 
     /**
@@ -94,6 +96,8 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+
+        return redirect()->route('products.index')->with('status', 'success');
     }
 }
