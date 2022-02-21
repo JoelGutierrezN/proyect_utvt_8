@@ -1,15 +1,10 @@
-<script setup>
-import BreezeAuthenticatedLayout from '@/Layouts/Authenticated.vue';
-import { Head } from '@inertiajs/inertia-vue3';
-</script>
-
 <template>
-    <Head title="Tablero" />
+    <Head title="Detalle de Producto" />
 
     <BreezeAuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Tablero
+                Detalle de Producto
             </h2>
         </template>
 
@@ -17,10 +12,26 @@ import { Head } from '@inertiajs/inertia-vue3';
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 bg-white border-b border-gray-200">
-                        <!-- Content -->
+                        {{ product.name }}
                     </div>
                 </div>
             </div>
         </div>
     </BreezeAuthenticatedLayout>
 </template>
+
+<script>
+import BreezeAuthenticatedLayout from "@/Layouts/Authenticated.vue";
+import { Head } from "@inertiajs/inertia-vue3";
+
+export default {
+    components: {
+        BreezeAuthenticatedLayout,
+        Head
+    },
+
+    props: {
+        product: Object
+    }
+};
+</script>
