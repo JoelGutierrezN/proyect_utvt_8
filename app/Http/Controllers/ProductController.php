@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -13,9 +14,9 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::orderBy('id', 'desc')->paginate(25)->through(function ($product) {
+        $products = Product::orderBy('id', 'desc')->where('name', 'LIKE', "%$request->q%")->paginate(25)->through(function ($product) {
             return [
                 'id' => $product->id,
                 'code' => $product->code,
@@ -38,7 +39,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Products/Create', [
+            'users' => User::orderBy('id', 'desc')->get()
+        ]);
     }
 
     /**
@@ -49,7 +52,17 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $product = new Product($request->except('image'));
+
+        if($request->hasFile('image')){
+            $product->image = $request->file('image')->store('products', 'public');
+        }
+
+        $product->code = $this->generateUniqueCode();
+
+        $product->save();
+
+        return redirect()->route('products.edit', $product)->with('status', 'success');
     }
 
     /**
@@ -99,5 +112,14 @@ class ProductController extends Controller
         $product->delete();
 
         return redirect()->route('products.index')->with('status', 'success');
+    }
+
+    public function generateUniqueCode()
+    {
+        do {
+            $code = "LC".random_int(100000, 999999);
+        } while (Product::where("code", "=", $code)->first());
+
+        return $code;
     }
 }
