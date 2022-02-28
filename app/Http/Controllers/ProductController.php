@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class ProductController extends Controller
@@ -16,7 +17,7 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $products = Product::orderBy('id', 'desc')->where('name', 'LIKE', "%$request->q%")->paginate(25)->through(function ($product) {
+        $products = Product::orderBy('id', 'desc')->where('name', 'LIKE', "%$request->q%")->paginate(10)->through(function ($product) {
             return [
                 'id' => $product->id,
                 'code' => $product->code,
@@ -66,17 +67,6 @@ class ProductController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Product $product)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Product  $product
@@ -84,7 +74,10 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        return Inertia::render('Products/Edit', compact('product'));
+        return Inertia::render('Products/Edit', [
+            'product' => $product,
+            'users' => User::orderBy('id', 'desc')->get()
+        ]);
     }
 
     /**
@@ -96,7 +89,12 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        $product->update($request->all());
+        if($request->hasFile('image')){
+            Storage::disk('public')->delete($product->image);
+            $product->image = $request->file('image')->store('products', 'public');
+        }
+
+        $product->update($request->except('image'));
 
         return redirect()->route('products.edit', $product)->with('status', 'success');
     }
