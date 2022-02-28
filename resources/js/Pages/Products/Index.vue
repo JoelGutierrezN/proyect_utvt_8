@@ -85,7 +85,13 @@
                                                         </span>
                                                     </td>
                                                     <td class="px-6 py-4 whitespace-nowrap">
-                                                        <button class="bg-red-700 hover:bg-red-900 text-white rounded-full p-2" @click.prevent="deleteProduct(product.id)">
+                                                        <button class="bg-green-700 hover:bg-green-900 text-white rounded-full p-2 mx-1" title="Agregar Stock" @click="getProductData(product.id)">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                            </svg>
+                                                        </button>
+
+                                                        <button class="bg-red-700 hover:bg-red-900 text-white rounded-full p-2 mx-1" @click.prevent="deleteProduct(product.id)" title="Eliminar">
                                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                                                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
                                                             </svg>
@@ -94,6 +100,27 @@
                                                 </tr>
                                             </tbody>
                                         </table>
+                                        <div v-if="productDetail != null" class="absolute right-3 top-2/4 w-98 h-60 shadow-2xl bg-white p-3 flex flex-col justify-between items-center">
+
+                                            <h6 class="bg-emerald-700 text-white p-2 rounded font-bold flex justify-between items-center w-full">
+                                                <span>
+                                                    Agregar Stock
+                                                </span>
+                                                <button class="p-1 bg-red-700 text-white rounded-full" @click.prevent="productDetail = null">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                    </svg>
+                                                </button>
+                                            </h6>
+
+                                            <div class="flex flex-col space-y-1 items-center">
+                                                <label for="" class="fw-bold text-black text-center w-full">Nuevas Entradas</label>
+                                                <input type="text" class="form-input rounded-lg w-6/12" v-model="stock">
+                                                <span class="italic text-zinc-500">{{ productDetail.stock }} Disponible(s)</span>
+                                            </div>
+
+                                            <button @click.prevent="addStock(productDetail.id)" class="bg-emerald-500 hover:bg-emerald-700 text-white p-2 text-center block">Agregar Nuevo Stock</button>
+                                        </div>
                                         <paginator :links="products.links" />
                                     </div>
                                 </div>
@@ -117,7 +144,7 @@ export default {
         BreezeAuthenticatedLayout,
         Head,
         Link,
-        Paginator
+        Paginator,
     },
 
     props: {
@@ -126,7 +153,9 @@ export default {
 
     data(){
         return {
-            q: ''
+            q: '',
+            productDetail: null,
+            stock: null
         }
     },
 
@@ -145,6 +174,18 @@ export default {
                 timer: 1500,
             });
         },
+
+        getProductData(id){
+            fetch(`/products/${id}`)
+                .then( response => response.json() )
+                .then( data => {
+                    this.productDetail = data;
+                });
+        },
+
+        addStock(id){
+            this.$inertia.put(this.route('products.update', id), {stock: this.stock, type: 'add'});
+        }
     },
 
     updated() {
@@ -161,3 +202,4 @@ export default {
     }
 };
 </script>
+

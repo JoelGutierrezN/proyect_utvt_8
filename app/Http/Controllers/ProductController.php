@@ -67,6 +67,17 @@ class ProductController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Product  $product
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Product $product)
+    {
+        return response()->json($product, 200);
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Product  $product
@@ -89,12 +100,16 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
+        if($request->input('type') == 'add'){
+            $product->stock = $product->stock + (int)$request->stock;
+        }
+
         if($request->hasFile('image')){
             Storage::disk('public')->delete($product->image);
             $product->image = $request->file('image')->store('products', 'public');
         }
 
-        $product->update($request->except('image'));
+        $product->update($request->except('image', 'stock'));
 
         return redirect()->route('products.edit', $product)->with('status', 'success');
     }

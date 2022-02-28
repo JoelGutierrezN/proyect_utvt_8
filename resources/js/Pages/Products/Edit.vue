@@ -57,7 +57,7 @@
                                             <h6 class="text-center text-white bg-emerald-800 rounded w-full py-2 my-3">¿Este producto es de...?</h6>
                                             <div class="flex justify-start w-11/12 md:w-4/12 space-x-4" v-for="user in users" :key="user.id">
                                                 <input type="radio" id="user_{{ user.id }}" class="rounded text-pink-500 m-r-2" name="user_id" v-model="form.user_id" :value="user.id" :checked="(user.id == product.user_id) ? true : false">
-                                                <label for="user_{{ user.id }}">{{ user.name }} {{user.id + ' ' + product.user_id}}</label>
+                                                <label for="user_{{ user.id }}">{{ user.name }}</label>
                                             </div>
                                         </div>
 
