@@ -4,6 +4,8 @@ import { createApp, h } from "vue";
 import { createInertiaApp } from "@inertiajs/inertia-vue3";
 import { InertiaProgress } from "@inertiajs/progress";
 import VueSweetalert2 from "vue-sweetalert2";
+import VueChartkick from 'vue-chartkick';
+import 'chartkick/chart.js';
 
 const appName =
     window.document.getElementsByTagName("title")[0]?.innerText || "Laravel";
@@ -15,6 +17,7 @@ createInertiaApp({
         return createApp({ render: () => h(app, props) })
             .use(plugin)
             .use(VueSweetalert2)
+            .use(VueChartkick)
             .mixin({ methods: { route } })
             .mount(el);
     },
