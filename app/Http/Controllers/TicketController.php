@@ -2,32 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Sale;
-use Inertia\Inertia;
+use App\Models\Ticket;
 use Illuminate\Http\Request;
 
-class SaleController extends Controller
+class TicketController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $sales = Sale::orderBy('id', 'desc')->where('products', 'LIKE', "%$request->q%")->paginate(10)->through(function ($sale) {
-            return [
-                'id' => $sale->id,
-                'products' => $sale->products,
-                'total' => $sale->total,
-                'status' => $sale->status,
-                'user_id' => $sale->user_id
-            ];
-        });
-
-        return Inertia::render('Sales/Index', [
-            'sales' => $sales
-        ]);
+        //
     }
 
     /**
@@ -54,10 +41,10 @@ class SaleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Ticket  $ticket
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Ticket $ticket)
     {
         //
     }
@@ -65,10 +52,10 @@ class SaleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Ticket  $ticket
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Ticket $ticket)
     {
         //
     }
@@ -77,10 +64,10 @@ class SaleController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Ticket  $ticket
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Ticket $ticket)
     {
         //
     }
@@ -88,10 +75,10 @@ class SaleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Ticket  $ticket
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Ticket $ticket)
     {
         //
     }

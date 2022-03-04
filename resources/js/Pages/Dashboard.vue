@@ -16,14 +16,14 @@
 
                         <div class="p-3 w-full flex justify-between mb-5">
                             <!-- Button New Sale  -->
-                            <button class="w-2/12 rounded-md bg-emerald-400 hover:bg-emerald-700 font-bold text-white p-2 flex justify-center lg:space-x-4 items-center">
+                            <Link :href="route('sales.index')" class="w-2/12 rounded-md bg-emerald-400 hover:bg-emerald-700 font-bold text-white p-2 flex justify-center lg:space-x-4 items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
                                 <span>
                                     Nueva Venta
                                 </span>
-                            </button>
+                            </Link>
                             <!-- Button New Sale END -->
 
                             <!-- Date -->
@@ -84,7 +84,7 @@
                                     <p class="w-3/12 text-start px-2 py-1 mb-1 shadow-sm shadow-green-900 italic">3:55 pm</p>
                                 </div>
                                 <div class="flex w-full justify-center my-4">
-                                    <Link class="transition-all duration-300 text-emerald-500 hover:text-emerald-900 font-bold my-2 text-lg border-b-4 border-t-2 border-emerald-500 hover:border-emerald-900 w-2/12 text-center">Ver Todas</Link>
+                                    <Link :href="route('sales.index')" class="transition-all duration-300 text-emerald-500 hover:text-emerald-900 font-bold my-2 text-lg border-b-4 border-t-2 border-emerald-500 hover:border-emerald-900 w-2/12 text-center">Ver Todas</Link>
                                 </div>
                             </div>
                             <!-- Sales END -->
