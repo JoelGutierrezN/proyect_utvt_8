@@ -13,14 +13,16 @@ class CreateDailyAccountsTable extends Migration
      */
     public function up()
     {
-        Schema::create('daily_accounts', function (Blueprint $table) {
+        Schema::create('daily_sales', function (Blueprint $table) {
             $table->id();
             $table->string('total');
-            $table->longText('sales');
+            $table->date('date');
             $table->date('date_start');
             $table->date('date_end');
-            $table->longText('user_data');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
