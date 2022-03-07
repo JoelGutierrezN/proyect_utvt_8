@@ -5,26 +5,22 @@
             <!-- Header -->
             <div id="home">
                 <div class="w-full h-3/4">
-                    <div
-                        class="w-full h-full flex flex-col absolute space-y-96 py-4 items-center lg:space-y-0 lg:items-start lg:pt-32 lg:justify-start"
-                    >
+                    <div class="w-full h-full flex flex-col absolute space-y-96 py-4 items-center lg:space-y-0 lg:items-start lg:pt-32 lg:justify-start">
                         <input
                             type="search"
                             class="p-3 rounded-full shadow-md shadow-black transition duration-300 focus-within:shadow-md focus:ring-2 focus:w-11/12 lg:hidden"
-                            placeholder="San Francisco"
+                            placeholder="Buscar Productos"
                             id="search"
                         />
                         <div class="hidden lg:h-auto lg:w-2/5 lg:flex pb-6">
                           <p class="text-4xl ml-16 font-bold text-white">Encuentra los mejores productos para el hogar.</p>
                         </div>
-                        <button
-                            class="text-lg font-semibold shadow-sm text-primary p-4 w-48 rounded-full bg-white transition duration-500 ease-in-out hover:bg-primary hover:text-white transform hover:-translate-y-1 hover:scale-110 lg:ml-16"
-                        >
-                            Explorar
+                        <button class="text-lg font-semibold shadow-sm text-primary p-4 w-48 rounded-full bg-white transition duration-500 ease-in-out hover:bg-primary hover:text-white transform hover:-translate-y-1 hover:scale-110 lg:ml-16">
+                            Buscar
                         </button>
                     </div>
-                    <div class="w-full h-full lg:h-96 lg:bg-sanFranciscoDesktop lg:bg-cover lg:bg-center">
-                        <img class="lg:hidden" src="img/sanFrancisco.jpg" alt="san_francisco" />
+                    <div class="w-full h-full lg:h-96 lg:bg-banner lg:bg-cover lg:bg-center">
+                        <img class="lg:hidden" src="img/LA.jpg" alt="banner_mobile" />
                     </div>
                 </div>
             </div>
@@ -32,38 +28,20 @@
 
             <!-- recommended  -->
             <div id="recommended" class="p-6">
-                <p class="text-3xl font-semibold text-primary">Recomendados</p>
+                <p class="text-3xl font-semibold text-primary">Productos Recomendados</p>
                 <!-- Scroll Container  -->
-                <div
-                    class="w-auto h-72 items-center px-4 mt-6 overflow-x-auto overscroll-x-contain flex space-x-4 overflow-y-hidden"
-                >
+                <div class="w-auto h-80 items-center px-4 mt-6 overflow-x-auto overscroll-x-contain flex space-x-4 overflow-y-hidden justify-center">
                     <!-- Card  -->
-                    <div class="card">
-                        <div
-                            class="w-full h-3/5 rounded-t-lg bg-cover bg-norway"
-                        ></div>
-                        <div
-                            class="bg-secondary w-full h-2/5 px-4 py-2 rounded-b-lg"
-                        >
-                            <p class="text-white text-bold text-xl">Noruega</p>
-                            <p class="text-white text-md">
-                                Paisajes increibles
+                    <div class="card overflow-hidden flex flex-col items-center justify-between" v-for="item in recommended" :key="item.id">
+                        <div class="w-full h-3/5 rounded-t-lg bg-cover bg-product bg-center"></div>
+                        <div class="bg-secondary w-full h-2/5 px-4 py-2">
+                            <p class="text-white text-bold text-xl">{{ item.name }}</p>
+                            <p class="text-white text-md lg:text-sm">
+                                {{ item.description.substr(0, 10) }}
                             </p>
                         </div>
-                    </div>
-                    <!-- End Card  -->
-                    <!-- Card  -->
-                    <div class="card">
-                        <div
-                            class="w-full h-3/5 rounded-t-lg bg-cover bg-new_york"
-                        ></div>
-                        <div
-                            class="bg-white w-full h-2/5 px-4 py-2 rounded-b-lg"
-                        >
-                            <p class="text-terciary text-bold text-xl">
-                                Nueva York
-                            </p>
-                            <p class="text-terciary text-md">La gran manzana</p>
+                        <div class="w-full">
+                            <p class="w-full h-full block font-bold text-white text-right italic px-4 text-md bg-lime-800 rounded-b-lg">{{ item.stock }} Disponibles(s)</p>
                         </div>
                     </div>
                     <!-- End Card  -->
@@ -75,44 +53,37 @@
             <!-- Popular Content  -->
             <div class="px-6 h-auto w-full" id="popular">
                 <p class="text-3xl text-primary font-semibold pb-6 mt-6">
-                    Rentas Destacadas
+                    Productos más populares
                 </p>
 
-                <div
-                    class="w-full h-full flex flex-col space-y-6 items-center justify-center lg:px-6"
-                >
+                <div class="w-full h-full flex flex-col space-y-6 items-center justify-center lg:px-6">
                     <!-- card  -->
-                    <div class="w-full h-96 bg-chicago bg-cover lg:bg-center rounded-xl">
-                        <p class="card-title">Chicago</p>
+                    <div class="w-full h-96 bg-products bg-cover lg:bg-center rounded-xl">
+                        <p class="card-title">{{ most_popular.name }}</p>
                         <p class="text-md pl-8 text-zinc-700 mr-24">
-                            2 Habitaciones, baño y cocina
+                            {{ most_popular.description }}
                         </p>
+                        <p class="pl-8 mr-24 text-primary font-bold text-2xl uppercase">!Ultimas existencias solo restan {{ most_popular.stock }}!</p>
                     </div>
                     <!--  End card  -->
                     <div class="lg:flex lg:h-full lg:space-x-4 lg:w-full space-y-4">
                       <!-- card  -->
-                      <div class="w-full h-96 bg-chicago bg-cover rounded-xl lg:h-auto">
-                          <p class="card-title">Chicago</p>
-                          <p class="text-md pl-8 text-zinc-700 mr-24">
-                              2 Habitaciones, baño y cocina
+                      <div class="w-full h-96 bg-products bg-cover rounded-xl lg:h-auto">
+                          <p class="card-title">{{ second_popular.name }}</p>
+                          <p class="text-md pl-8 text-zinc-900 mr-24">
+                              {{ second_popular.description }}
                           </p>
+                          <p class="pl-8 mr-24 text-primary font-bold text-2xl uppercase">!Ultimas existencias solo restan {{ second_popular.stock }}!</p>
                       </div>
                       <!--  End card  -->
                       <div class="lg:w-3/6 flex flex-col space-y-4">
                         <!-- card  -->
-                        <div class="w-full h-96 bg-chicago bg-cover rounded-xl">
-                            <p class="card-title">Chicago</p>
-                            <p class="text-md pl-8 text-zinc-700 mr-24">
-                                2 Habitaciones, baño y cocina
+                        <div v-for="item in popular" :key="item.id" class="w-full h-96 bg-products bg-cover rounded-xl">
+                            <p class="card-title">{{ item.name }}</p>
+                            <p class="text-md pl-8 text-zinc-900 mr-24">
+                                {{ item.description }}
                             </p>
-                        </div>
-                        <!--  End card  -->
-                        <!-- card  -->
-                        <div class="w-full h-96 bg-chicago bg-cover rounded-xl">
-                            <p class="card-title">Chicago</p>
-                            <p class="text-md pl-8 text-zinc-700 mr-24">
-                                2 Habitaciones, baño y cocina
-                            </p>
+                            <p class="pl-8 mr-24 text-primary font-bold text-2xl uppercase">!Ultimas existencias solo restan {{ item.stock }}!</p>
                         </div>
                         <!--  End card  -->
                       </div>
@@ -123,40 +94,47 @@
             <!-- End Popular Content  -->
 
             <!-- About -->
-            <div id="about" class="w-full py-4 h-auto">
-                <div class="w-full h-full px-6 flex flex-col space-y-4">
+            <div id="about" class="w-full py-4 h-auto lg:text-center">
+                <div class="w-full h-full lg:w-4/6 px-6 lg:mx-auto flex flex-col space-y-4">
                     <p class="text-3xl text-primary font-semibold mt-6">
-                        Preguntas Frecuentes
+                        ¿Quienes Somos?
                     </p>
                     <div class="">
                         <p class="text-xl font-medium text-primary">
                             ¿Quienes somos?
                         </p>
-                        <p class="text-md pt-2">...</p>
+                        <p class="text-md pt-2">Somos una sucursal de venta de productos de todo tipo, destinados a todo tipo de actividades,
+                            pero enfocados mayormente en el area del hogar como bien pueden ser alimentos, plasticos, detergentes, utencilios de cocina,
+                            herramientas de limpieza, herramientas de higiena, productos para el baño entre otros.</p>
                     </div>
                     <div class="flex flex-col">
                         <p class="text-xl font-medium text-primary">
                             ¿Que encuentras con nosotros?
                         </p>
-                        <p class="text-md pt-2">...</p>
+                        <p class="text-md pt-2">Encontraras en nuestros productos todo lo esencial para el hogar ademas de una excelente atencion y garantia
+                            de tus productos, en caso de que algo no te gusta te podemos hacer un cambio o devolucion o bien si no encontraste lo que buscabas puedes
+                            contactarnos.
+                        </p>
                     </div>
                     <div class="flex flex-col">
                         <p class="text-xl font-medium text-primary">
                             ¿Necesitas contactarnos?
                         </p>
-                        <p class="text-md pt-2">...</p>
+                        <p class="text-md pt-2">En nuestra informacion del negocio puedes encontrar nuestra ubicacion además de los diferentes metodos de contacto
+                            a los que puedes recurrir en caso de necesitar contactarnos,
+                        </p>
                     </div>
                 </div>
             </div>
             <!-- End About -->
 
             <!-- Footer -->
-            <footer class="w-full h-64 bg-gray-50 p-6 space-y-2">
+            <footer class="w-full h-64 bg-gray-100 p-6 space-y-2">
                 <p class="text-lg">Acerca de</p>
-                <p class="text-sm text-gray-300">Encuentranos en</p>
-                <p class="text-sm text-gray-300">Inversionistas</p>
-                <p class="text-sm text-gray-300">Terminos y Condiciones</p>
-                <p class="text-sm text-gray-300">Contacto</p>
+                <p class="text-sm text-gray-500">Encuentranos en: Emiliano Zapata #12 Col. El Panteón, Lerma de Villada, Lerma, Estado de México, México</p>
+                <p class="text-sm text-gray-500">Terminos y Condiciones</p>
+                <p class="text-sm text-gray-500">Contacto: contacto@lermaclean.com</p>
+                <Link :href="route('dashboard')" class="text-sm text-gray-500">¿Eres miembro LermaClean?</Link>
             </footer>
             <!-- End Footer -->
         </section>
@@ -260,5 +238,12 @@ export default {
     components: {
         Link,
     },
+
+    props:{
+        recommended: Array,
+        most_popular: Object,
+        second_popular: Object,
+        popular: Array
+    }
 };
 </script>

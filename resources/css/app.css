@@ -3,9 +3,9 @@
 @import 'tailwindcss/utilities';
 
 .card{
-    @apply w-48 h-64 shadow-lg shadow-black rounded-lg flex-none transform transition-all hover:-translate-y-4 hover:shadow-xl;
+    @apply w-48 h-72 shadow-lg shadow-black rounded-lg flex-none transform transition-all hover:-translate-y-4 hover:shadow-xl;
 }
 
 .card-title{
-    @apply text-3xl px-8 pt-8 pb-2 font-semibold text-white;
+    @apply text-3xl px-8 pt-8 pb-2 font-bold text-zinc-900;
 }
