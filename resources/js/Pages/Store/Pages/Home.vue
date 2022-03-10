@@ -34,14 +34,14 @@
                     <!-- Card  -->
                     <div class="card overflow-hidden flex flex-col items-center justify-between" v-for="item in recommended" :key="item.id">
                         <div class="w-full h-3/5 rounded-t-lg bg-cover bg-product bg-center"></div>
-                        <div class="bg-secondary w-full h-2/5 px-4 py-2">
-                            <p class="text-white text-bold text-xl">{{ item.name }}</p>
-                            <p class="text-white text-md lg:text-sm">
+                        <div class="bg-white w-full h-2/5 px-4 py-2">
+                            <p class="text-terciary text-bold text-xl">{{ item.name }}</p>
+                            <p class="text-terciary text-md lg:text-sm">
                                 {{ item.description.substr(0, 10) }}
                             </p>
                         </div>
                         <div class="w-full">
-                            <p class="w-full h-full block font-bold text-white text-right italic px-4 text-md bg-lime-800 rounded-b-lg">{{ item.stock }} Disponibles(s)</p>
+                            <p class="w-full h-full block font-bold text-white text-right italic px-4 text-md bg-terciary rounded-b-lg">{{ item.stock }} Disponibles(s)</p>
                         </div>
                     </div>
                     <!-- End Card  -->

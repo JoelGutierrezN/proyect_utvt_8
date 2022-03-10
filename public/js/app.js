@@ -23439,19 +23439,19 @@ var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 );
 
 var _hoisted_9 = {
-  "class": "bg-secondary w-full h-2/5 px-4 py-2"
+  "class": "bg-white w-full h-2/5 px-4 py-2"
 };
 var _hoisted_10 = {
-  "class": "text-white text-bold text-xl"
+  "class": "text-terciary text-bold text-xl"
 };
 var _hoisted_11 = {
-  "class": "text-white text-md lg:text-sm"
+  "class": "text-terciary text-md lg:text-sm"
 };
 var _hoisted_12 = {
   "class": "w-full"
 };
 var _hoisted_13 = {
-  "class": "w-full h-full block font-bold text-white text-right italic px-4 text-md bg-lime-800 rounded-b-lg"
+  "class": "w-full h-full block font-bold text-white text-right italic px-4 text-md bg-terciary rounded-b-lg"
 };
 var _hoisted_14 = {
   "class": "px-6 h-auto w-full",
